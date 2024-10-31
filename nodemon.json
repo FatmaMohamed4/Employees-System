@@ -1,0 +1,5 @@
+{
+  "exec" :"node --loader ts-node/esm" ,
+  "watch":[".*ts"],
+  "ext" :"ts"
+}
