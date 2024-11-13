@@ -7,6 +7,8 @@ export interface IEmployee extends Document {
   email: string;
   position: string;
   salary: number;
+  hourlyRate :any ,
+  hoursWorked :any
 }
 
 const EmployeeSchema: Schema = new Schema({
@@ -14,6 +16,8 @@ const EmployeeSchema: Schema = new Schema({
   email: { type: String, required: true, unique: true },
   position: { type: String, required: true },
   salary: { type: Number, required: true },
+  hourlyRate :{type:Number} ,
+  hoursWorked :{type :Number}
 }, { timestamps: true });
 
 export default mongoose.model<IEmployee>("Employee", EmployeeSchema);

@@ -16,15 +16,18 @@ var __extends = (this && this.__extends) || (function () {
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.AppError = void 0;
+// AppError.ts
 var AppError = /** @class */ (function (_super) {
     __extends(AppError, _super);
     function AppError(message, statusCode, isOperational) {
         if (isOperational === void 0) { isOperational = true; }
+        var _newTarget = this.constructor;
         var _this = _super.call(this, message) || this;
-        //   Object.setPrototypeOf(this, new.target.prototype);
+        Object.setPrototypeOf(_this, _newTarget.prototype); // Correctly set the prototype
         _this.statusCode = statusCode;
+        _this.message = message;
         _this.isOperational = isOperational;
-        Error.captureStackTrace(_this);
+        Error.captureStackTrace(_this); // Capture the stack trace
         return _this;
     }
     return AppError;

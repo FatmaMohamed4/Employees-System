@@ -2,11 +2,10 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.dbConnection = void 0;
 var mongoose_1 = require("mongoose");
-// import dotenv from 'dotenv';
-// dotenv.config();
-var MongoURL = process.env.DBUrl;
+var variables_1 = require("../variables");
+var MongoURL = variables_1.DBUrl;
 if (!MongoURL) {
-    throw new Error("DBUrl is not defined in the environment variables");
+    console.log("DBUrl is not defined in the environment variables");
 }
 exports.dbConnection = mongoose_1.default.connect(MongoURL, {
     dbName: 'TS-1',
@@ -15,3 +14,5 @@ exports.dbConnection = mongoose_1.default.connect(MongoURL, {
 }).catch(function (error) {
     console.error('DB connection error:', error);
 });
+
+

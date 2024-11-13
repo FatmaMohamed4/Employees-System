@@ -1,14 +1,16 @@
 {
     "compilerOptions": {
       "target": "ES6",
-      "module": "ESNext",
+      "module": "CommonJS",
       "outDir": "./dist",
       "rootDir": "./src",
       "strict": true,
       "esModuleInterop": true,
       "skipLibCheck": true ,
-      "moduleResolution": "node"
+      "moduleResolution": "node",
+      "types": ["jest"] // Include Jest types here
     },
-    "include": ["src/**/*"],
+    
+    "include":["src/**/*.ts", "tests/**/*.ts"] ,
     "exclude": ["node_modules"]
 }

@@ -36,20 +36,31 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.createEmployee = exports.getAll = void 0;
+exports.deleteEmployee = exports.updateEmployee = exports.getOneById = exports.createEmployee = exports.getAll = void 0;
 var Employee_Model_1 = require("../Models/Employee.Model");
 var NotfoundError_1 = require("../Errors/NotfoundError");
 var validationError_1 = require("../Errors/validationError");
 var employee;
-function notFound() {
+var employees;
+function notFound(req, res) {
     return __awaiter(this, void 0, void 0, function () {
+        var id;
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4 /*yield*/, Employee_Model_1.default.find()];
+                case 0:
+                    id = req.body.id;
+                    if (!id) return [3 /*break*/, 2];
+                    return [4 /*yield*/, Employee_Model_1.default.findById({ id: id })];
                 case 1:
-                    employee = _a.sent();
-                    if (!employee || employee.length === 0) {
-                        throw new NotfoundError_1.NotFoundError('Employees not found');
+                    employees = _a.sent();
+                    return [3 /*break*/, 4];
+                case 2: return [4 /*yield*/, Employee_Model_1.default.find()];
+                case 3:
+                    employees = _a.sent();
+                    _a.label = 4;
+                case 4:
+                    if (!employees || (Array.isArray(employees) && employees.length === 0)) {
+                        throw new NotfoundError_1.NotFoundError('Employee not found');
                     }
                     return [2 /*return*/];
             }
@@ -57,31 +68,110 @@ function notFound() {
     });
 }
 var getAll = function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
-    var employees;
+    var employees_1, error_1;
     return __generator(this, function (_a) {
         switch (_a.label) {
-            case 0: return [4 /*yield*/, notFound()];
+            case 0:
+                _a.trys.push([0, 2, , 3]);
+                return [4 /*yield*/, Employee_Model_1.default.find()];
             case 1:
-                employees = _a.sent();
-                res.status(200).json(employees);
-                return [2 /*return*/];
+                employees_1 = _a.sent();
+                res.status(200).json(employees_1);
+                return [3 /*break*/, 3];
+            case 2:
+                error_1 = _a.sent();
+                next(error_1);
+                return [3 /*break*/, 3];
+            case 3: return [2 /*return*/];
         }
     });
 }); };
 exports.getAll = getAll;
 var createEmployee = function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
-    var body;
     return __generator(this, function (_a) {
-        body = req.body;
-        if (!body) {
-            throw new validationError_1.ValidationError('Data is not valid');
+        switch (_a.label) {
+            case 0: return [4 /*yield*/, Employee_Model_1.default.create(req.body)];
+            case 1:
+                employee = _a.sent();
+                if (!req.body) {
+                    throw new validationError_1.ValidationError('Data is required');
+                }
+                res.status(201).json({
+                    status: true,
+                    message: "This employee is created",
+                    employee: employee
+                });
+                return [2 /*return*/];
         }
-        employee = new Employee_Model_1.default(body);
-        res.status(201).json({
-            status: true,
-            message: "This employee is created"
-        });
-        return [2 /*return*/];
     });
 }); };
 exports.createEmployee = createEmployee;
+var getOneById = function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
+    var id;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0:
+                id = req.body.id;
+                if (!id) {
+                    throw new NotfoundError_1.NotFoundError('ID is required');
+                }
+                return [4 /*yield*/, Employee_Model_1.default.findById(id)];
+            case 1:
+                employee = _a.sent();
+                res.json(employee);
+                return [2 /*return*/];
+        }
+    });
+}); };
+exports.getOneById = getOneById;
+var updateEmployee = function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
+    var updateData;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0:
+                updateData = req.body;
+                return [4 /*yield*/, Employee_Model_1.default.findByIdAndUpdate(req.body.id, updateData, {
+                        new: true,
+                        runValidators: true,
+                    })];
+            case 1:
+                employee = _a.sent();
+                if (!employee) {
+                    throw new NotfoundError_1.NotFoundError('Employee not found');
+                }
+                res.status(200).json(employee);
+                return [2 /*return*/];
+        }
+    });
+}); };
+exports.updateEmployee = updateEmployee;
+var deleteEmployee = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+    var id, deletedEmployee, error_2;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0:
+                id = req.body.id;
+                if (!id) {
+                    throw new validationError_1.ValidationError('Id is required');
+                }
+                _a.label = 1;
+            case 1:
+                _a.trys.push([1, 3, , 4]);
+                return [4 /*yield*/, Employee_Model_1.default.findByIdAndDelete(id)];
+            case 2:
+                deletedEmployee = _a.sent();
+                // Respond with a success message
+                return [2 /*return*/, res.status(200).json({
+                        status: true,
+                        message: 'Deleted employee successfully',
+                        deleted: deletedEmployee,
+                    })];
+            case 3:
+                error_2 = _a.sent();
+                console.error('Error deleting employee:', error_2);
+                return [2 /*return*/, res.status(500).json({ error: 'Internal server error' })];
+            case 4: return [2 /*return*/];
+        }
+    });
+}); };
+exports.deleteEmployee = deleteEmployee;
