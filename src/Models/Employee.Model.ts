@@ -15,9 +15,9 @@ const EmployeeSchema: Schema = new Schema({
   name: { type: String, required: true },
   email: { type: String, required: true, unique: true },
   position: { type: String, required: true },
-  salary: { type: Number, required: true },
-  hourlyRate :{type:Number} ,
-  hoursWorked :{type :Number}
+  salary: { type: Number},
+  hourlyRate :{type:Number , default:100} ,
+  hoursWorked :{type :Number, default :50}
 }, { timestamps: true });
 
 export default mongoose.model<IEmployee>("Employee", EmployeeSchema);

@@ -1,14 +1,14 @@
 import mongoose from "mongoose";
-import { DBUrl } from "../variables";
+import dotenv from "dotenv" ;
 
-
-const MongoURL =  DBUrl
+dotenv.config()
+const MongoURL =process.env.DBUrl;
 
 if (!MongoURL) {
     console.log("DBUrl is not defined in the environment variables");
 }
 
-export const dbConnection = mongoose.connect(MongoURL, {
+export const dbConnection = mongoose.connect(MongoURL as string, {
     dbName: 'TS-1',
 }).then(() => {
     console.log('DB is connected');

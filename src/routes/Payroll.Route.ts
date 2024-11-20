@@ -1,7 +1,10 @@
 import { Router } from "express";
 
-import { calculatePayroll } from './../controllers/Payroll.Controller';
+import { calculatePayroll, getPayroll } from './../controllers/Payroll.Controller';
 
-const router = Router();
+const payrollRouter = Router();
 
-router.post('/calculate' , calculatePayroll)
+payrollRouter.post('/calc' , calculatePayroll)
+payrollRouter.get('/get', getPayroll)
+
+export default payrollRouter
