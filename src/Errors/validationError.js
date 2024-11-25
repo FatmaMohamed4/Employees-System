@@ -16,7 +16,10 @@ var __extends = (this && this.__extends) || (function () {
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.ValidationError = void 0;
+<<<<<<< HEAD
 // ValidationError.ts
+=======
+>>>>>>> a2359e5af1c41dbb776f9172a7c82841eee40418
 var AppError_1 = require("./AppError");
 var ValidationError = /** @class */ (function (_super) {
     __extends(ValidationError, _super);

@@ -16,7 +16,10 @@ var __extends = (this && this.__extends) || (function () {
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.NotFoundError = void 0;
+<<<<<<< HEAD
 // NotFoundError.ts
+=======
+>>>>>>> a2359e5af1c41dbb776f9172a7c82841eee40418
 var AppError_1 = require("./AppError");
 var NotFoundError = /** @class */ (function (_super) {
     __extends(NotFoundError, _super);

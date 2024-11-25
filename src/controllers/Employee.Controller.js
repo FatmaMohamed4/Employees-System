@@ -36,11 +36,16 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+<<<<<<< HEAD
 exports.deleteEmployee = exports.updateEmployee = exports.getOneById = exports.createEmployee = exports.getAll = void 0;
+=======
+exports.createEmployee = exports.getAll = void 0;
+>>>>>>> a2359e5af1c41dbb776f9172a7c82841eee40418
 var Employee_Model_1 = require("../Models/Employee.Model");
 var NotfoundError_1 = require("../Errors/NotfoundError");
 var validationError_1 = require("../Errors/validationError");
 var employee;
+<<<<<<< HEAD
 var employees;
 function notFound(req, res) {
     return __awaiter(this, void 0, void 0, function () {
@@ -61,6 +66,17 @@ function notFound(req, res) {
                 case 4:
                     if (!employees || (Array.isArray(employees) && employees.length === 0)) {
                         throw new NotfoundError_1.NotFoundError('Employee not found');
+=======
+function notFound() {
+    return __awaiter(this, void 0, void 0, function () {
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0: return [4 /*yield*/, Employee_Model_1.default.find()];
+                case 1:
+                    employee = _a.sent();
+                    if (!employee || employee.length === 0) {
+                        throw new NotfoundError_1.NotFoundError('Employees not found');
+>>>>>>> a2359e5af1c41dbb776f9172a7c82841eee40418
                     }
                     return [2 /*return*/];
             }
@@ -68,6 +84,7 @@ function notFound(req, res) {
     });
 }
 var getAll = function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
+<<<<<<< HEAD
     var employees_1, error_1;
     return __generator(this, function (_a) {
         switch (_a.label) {
@@ -83,11 +100,22 @@ var getAll = function (req, res, next) { return __awaiter(void 0, void 0, void 0
                 next(error_1);
                 return [3 /*break*/, 3];
             case 3: return [2 /*return*/];
+=======
+    var employees;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0: return [4 /*yield*/, notFound()];
+            case 1:
+                employees = _a.sent();
+                res.status(200).json(employees);
+                return [2 /*return*/];
+>>>>>>> a2359e5af1c41dbb776f9172a7c82841eee40418
         }
     });
 }); };
 exports.getAll = getAll;
 var createEmployee = function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
+<<<<<<< HEAD
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0: return [4 /*yield*/, Employee_Model_1.default.create(req.body)];
@@ -175,3 +203,20 @@ var deleteEmployee = function (req, res) { return __awaiter(void 0, void 0, void
     });
 }); };
 exports.deleteEmployee = deleteEmployee;
+=======
+    var body;
+    return __generator(this, function (_a) {
+        body = req.body;
+        if (!body) {
+            throw new validationError_1.ValidationError('Data is not valid');
+        }
+        employee = new Employee_Model_1.default(body);
+        res.status(201).json({
+            status: true,
+            message: "This employee is created"
+        });
+        return [2 /*return*/];
+    });
+}); };
+exports.createEmployee = createEmployee;
+>>>>>>> a2359e5af1c41dbb776f9172a7c82841eee40418
